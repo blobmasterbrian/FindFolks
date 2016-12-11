@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # System setup
-sudo -H easy_install pip
-sudo -H pip install virtualenv  # virtualenv to set up python environment
+sudo easy_install pip
+sudo pip install virtualenv  # virtualenv to set up python environment
+sudo pip install bcrypt
 xcode-select --install  # update dev tools
 # HOMEBREW ASSUMED INSTALLED /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install mysql  # mysql download
