@@ -1,0 +1,2 @@
+-- DROP DATABASE FindFolks;
+CREATE DATABASE FindFolks;
