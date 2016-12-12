@@ -5,14 +5,6 @@ import logging, os, sqlalchemy, jinja2
 from flask_oauth import OAuth
 
 oauth = OAuth()
-twitter = oauth.remote_app('twitter',
-base_url='https://api.twitter.com/1/',
-request_token_url='https://api.twitter.com/oauth/request_token',
-access_token_url='https://api.twitter.com/oauth/access_token',
-authorize_url='https://api.twitter.com/oauth/authenticate',
-consumer_key='7uazYUVD2EPYubYIg3oaD5kDh',
-consumer_secret='BHefATbQuwCR76UXDO1fdxSn8CxOOcvARk2lWps4tR0QhzBIRm'
-)
 
 def format_datetime(date):
     return date.strftime("%Y-%m-%d %H:%M")

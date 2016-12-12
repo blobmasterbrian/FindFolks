@@ -3,7 +3,6 @@ from FindFolks.config import SQLALCHEMY_DATABASE_URI
 from FindFolks.models import db, Member
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
-from FindFolks import twitter
 
 import datetime, json, requests
 from time import gmtime, strftime
@@ -14,8 +13,8 @@ eng = create_engine(SQLALCHEMY_DATABASE_URI)
 
 def sendmail(addr, text):
     return requests.post(
-        "https://api.mailgun.net/v3/sandboxa934a03bddc04f4c921855c9c6fbc28e.mailgun.org/messages",
-        auth=("api", "key-886baf72f7a96c51b9f14155716d86c1"),
+        "https://api.mailgun.net/v3/sandbox94b9b02e2c92414fa8e3ab4cbfff3bce.mailgun.org/messages",
+        auth=("api", "key-98da7e9f3f4007f49e42fd4614ee12fa"),
         data={"from": "FindFolks",
               "to": [addr],
               "subject": "Message from FindFolks",
@@ -47,29 +46,6 @@ def index():
         {"StartRange": start_time, "EndRange": end_time}
         )]
     return render_template('index.html', groups=groups, events=events, interests=interests, start_time=start_time, end_time=end_time)
-
-@views.route('/dotweet', methods=['POST'])
-def dotweet():
-    """Calls the remote twitter API to create a new status update."""
-
-    event = request.form.get("event")
-    status = "I am going to %s. Come join me!" % event
-    if not status:
-        return redirect(url_for('index'))
-    resp = twitter.post('statuses/update.json', data={
-        'status':       status
-    })
-    if resp.status == 403:
-        flash('Your tweet was too long.')
-    elif resp.status == 401:
-        flash('Authorization error with Twitter.')
-    else:
-        flash('Successfully tweeted your tweet (ID: #%s)' % resp.data['id'])
-    return redirect(url_for('index'))
-
-@views.route('/tweet', methods=['POST'])
-def tweet():
-    return twitter.authorize(callback=url_for('.dotweet'))
 
 @views.route('/home', methods=['GET', 'POST'])
 def home():

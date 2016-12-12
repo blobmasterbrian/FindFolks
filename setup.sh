@@ -20,6 +20,7 @@ venv/bin/pip install passlib
 venv/bin/pip install bcrypt
 venv/bin/easy_install six
 venv/bin/pip install mysql-python
+venv/bin/pip install requests
 cd ..
 
 # Set source to virtual environment
