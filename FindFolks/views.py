@@ -363,7 +363,11 @@ def add_friend():
         text("SELECT friend_to FROM friends WHERE \
             friend_to = :Friend"), {"Friend": friend})]) > 0
 
-    if not friend_exists:
+    member = len([_ for _ in db.session.execute(
+        text("SELECT username FROM member WHERE \
+            username = :Friend"), {"Friend": friend})]) > 0
+
+    if not friend_exists and member:
         db.session.execute(
             text("INSERT INTO friends (friend_to, friend_of) VALUES (:Friend, :Username)"),
             {"Friend": friend, "Username": username})
