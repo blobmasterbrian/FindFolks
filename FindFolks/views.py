@@ -153,7 +153,7 @@ def search_events():
     search = ""
     if request.method == "POST":
         search = request.form.get("search")
-        results = [_ for _ in db.session.execute(text("SELECT events.event_id, events.title, events.description, events.start_time, events.end_time, events.group_id, location.*, groups.group_name FROM event \
+        results = [_ for _ in db.session.execute(text("SELECT events.event_id, events.title, events.description, events.start_time, events.end_time, events.group_id, location.*, groups.group_name FROM events \
             LEFT JOIN location ON (location.lname = events.lname AND location.zipcode = events.zipcode) \
             LEFT JOIN groups ON events.group_id = groups.group_id WHERE title LIKE \"%%%s%%\"" % search),
             {"Search": search})]
