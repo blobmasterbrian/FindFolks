@@ -9,7 +9,7 @@
     <form method="POST" action="/">
       <input type="hidden" name="type" value="group">
         <div class="form-group">
-            <label for="select" class="col-lg-2 control-label">Group Interests</label>
+            <label for="select" class="col-lg-2 control-label">Group Category</label>
             <select class="col-lg-2" name="interest" class="form-control" id="select">
                 {% for interest in interests %}
                 <option value="{{ interest[0] }}">{{ interest[0] }}</option>
@@ -34,7 +34,7 @@
         <hr />
       {% endfor %}
     {% else %}
-      <p>No groups have that interest</p>
+      <p>No group category matches that interest</p>
     {% endif %}
 
     <h1 class="header">Search Event</h1>

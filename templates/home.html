@@ -48,10 +48,7 @@
           </div>
       </div>
     </form>
-    <h2>Interests</h2>
-    {% for interest in interests %}
-      <p>{{ interest[0] }}</p>
-    {% endfor %}
+
     <h1 class="header">Search Event</h1>
     <form method="POST" action="/home">
       <div class="form-group">
@@ -136,6 +133,15 @@
       <p>No events match search</p>
     {% endif %}
 
+    <h2>My Friends</h2>
+    {% for friend in frinds %}
+      <p>{{ friend[0] }}</p>
+    {% endfor %}
+    <h2>My Interests</h2>
+    {% for interest in interests %}
+      <p>{{ interest[0] }}</p>
+    {% endfor %}
+    
     <h2>My Groups</h2>
     {% for group in groups %}
     <div class="row">
