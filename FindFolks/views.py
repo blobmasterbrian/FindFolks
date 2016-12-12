@@ -92,7 +92,9 @@ def home():
 
     interests = [_ for _ in db.session.execute(text("SELECT interest_name FROM interested_in WHERE username = :Username"),
         {"Username": username})]
-    return render_template('home.html', events=events, groups=groups, interests=interests,
+    friends = [_ for _ in db.session.execute(text("SELECT friend_to FROM friends WHERE friend_of = :Username"),
+        {"Username": username})]
+    return render_template('home.html', events=events, groups=groups, interests=interests, friends=friends,
         event_search=event_search, start_time=start_time, end_time=end_time, msg=msg, group_members=group_members,
         event_members=event_members, errors=errors)
 
@@ -351,6 +353,23 @@ def create_interest():
         db.session.commit()
 
     return redirect(url_for(".home", msg="Added Interest"))
+
+@views.route('/add/friend', methods=['POST'])
+def add_friend():
+    friend = request.form.get("friend")
+    username = session["username"]
+
+    friend_exists = len([_ for _ in db.session.execute(
+        text("SELECT friend_to FROM friends WHERE \
+            friend_to = :Friend"), {"Friend": friend})]) > 0
+
+    if not friend_exists:
+        db.session.execute(
+            text("INSERT INTO friends (friend_to, friend_of) VALUES (:Friend, :Username)"),
+            {"Friend": friend, "Username": username})
+        db.session.commit()
+
+    return redirect(url_for(".home", msg="Added friend"))
 
 @views.route('/logout')
 def logout():

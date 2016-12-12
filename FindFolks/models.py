@@ -28,16 +28,16 @@ class Member(db.Model):
     def __repr__(self):
         return '<Member %r>' % self.username
 
-# class Friends(db.Model):
-#     friend_of = db.Column(db.Integer, primary_key=True)
-#     friend_to = db.Column(db.String(20))
-#
-#     def __init__(self, friend_of, friend_to):
-#         self.friend_of = friend_of
-#         self.friend_to = friend_to
-#
-#     def __repr__(self):
-#         return '<Friends: %r to %r>' % self.friend_of, friend_to
+class Friends(db.Model):
+    friend_to = db.Column(db.String(20), primary_key=True)
+    friend_of = db.Column(db.String(20))
+
+    def __init__(self, friend_to, friend_of):
+        self.friend_to = friend_to
+        self.friend_of = friend_of
+
+    def __repr__(self):
+        return '<Friends: %r to %r>' % friend_to, self.friend_of
 
 class Groups(db.Model):
     group_id = db.Column(db.Integer, primary_key=True)
@@ -83,12 +83,8 @@ class GroupInterest(db.Model):
 
 class MemberInterest(db.Model):
     __tablename__ = "interested_in"
-    interest_name = db.Column(
-            db.String(20), db.ForeignKey('interest.interest_name'), default=""
-        )
-    username = db.Column(
-            db.String(20), db.ForeignKey('member.username')
-        )
+    interest_name = db.Column(db.String(20), db.ForeignKey('interest.interest_name'), default="")
+    username = db.Column(db.String(20), db.ForeignKey('member.username'))
     i = db.Column(db.Integer, primary_key=True)
 
     def __init__(self, interest_name, username):
