@@ -21,10 +21,10 @@ venv/bin/pip install bcrypt
 venv/bin/easy_install six
 venv/bin/pip install mysql-python
 venv/bin/pip install requests
-cd ..
 
 # Set source to virtual environment
 source venv/bin/activate
+cd ..
 
 mysql.server start  # start server
 mysql -u root < setup.sql  # create database
