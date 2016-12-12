@@ -27,12 +27,13 @@ source venv/bin/activate
 cd ..
 
 mysql.server start  # start server
-mysql -u root < setup.sql  # create database
 
+mysql -u root < create.sql
 export FLASK_APP=ffserver.py
 export FLASK_DEBUG=1
 python ffserver.py
+# mysql -u root < setup.sql  # populate database
 
-mysql.server stop  # stop server
-
-deactivate  # end environment sourcing
+# mysql.server stop  # stop server
+#
+# deactivate  # end environment sourcing
