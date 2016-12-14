@@ -1,0 +1,70 @@
+Descriptions of each file/function
+NOTE: No file of use cases and queries as it wouldn't make much sense
+      and would be hard to tell where they are, instead they have been
+      added as comments
+
+setup.sh
+    installs dependencies for flask to run and setup anything else
+create.sql
+    created to create database in lieu of setup.sql as ffserver.py
+    must be run at least once to create proper tables
+setup.sql
+    unused to import database files as sql alchemy dependencies cause errors
+ffserver.py
+    creates the app then runs it on localhost port 8888
+
+FindFolks - folder containing server python files
+__init__.py
+    initializes the app and creates the database tables
+auth.py
+    defines blueprint bound functions for authorization processes (register/login)
+config.py
+    sqlalchemy configuration settings
+errors.py
+    defines blueprint bound functions for errors
+models.py
+    contains sql alchemy where the columns of each entity is defined
+utils.py
+    unused utilities initialization
+views.py
+    defines blueprint bound functions for rendering most webpages
+    NOTE: many queries in this retrieve more info than is rendered
+          the rendering just chooses the necessary element
+          (ie. groups = ... SELECT belongs_to.group_id, group_name FROM ... in .py
+               {% groups[1] %} in .html would output just group name)
+
+project Folder - unneeded folder to hold virtualenv included out of habit
+    venv Folder - folder containing the virtual environment
+        bin Folder - contains dependencies installed via shell script
+                     also contains the activate executable to start env
+        include Folder - contains reference to python folder of header files
+        lib Folder - contains python source files
+
+static Folder - contains bootstrap formatting
+NOTE: 13 NOT developed code, taken from bootswatch
+      which provides free bootstrap themes
+
+templates Folder - holds the html templates for each webpage
+    errors Folder - html pages for errors
+    base.html - webpage that every other page is built off of excluding errors
+    index.html is the FindFolks page, every other file is the
+               html for the corresponding name of the page
+               NOTE: many templates use a subscript to identify the desired element
+                     to be rendered onto the screen
+                     (ie. groups = ... SELECT belongs_to.group_id, group_name FROM ... in .py
+                          {% groups[1] %} in .html would output just group name)
+
+1 http://flask.pocoo.org/docs/0.11/api/
+2 http://flask.pocoo.org/docs/0.11/templating/
+3 http://flask.pocoo.org/docs/0.11/appcontext/
+4 http://flask.pocoo.org/docs/0.11/config/
+5 http://flask-sqlalchemy.pocoo.org/2.1/api/#flask.ext.sqlalchemy.SQLAlchemy
+6 https://pythonhosted.org/Flask-Session/
+  http://docs.sqlalchemy.org/en/latest/orm/session_api.html
+7 http://flask.pocoo.org/docs/0.11/blueprints/
+8 https://documentation.mailgun.com/quickstart-sending.html#how-to-start-sending-email
+9 http://docs.sqlalchemy.org/en/rel_1_1/core/metadata.html
+10 http://flask.pocoo.org/docs/0.11/quickstart/
+11 https://en.wikipedia.org/wiki/Bcrypt
+12 http://getbootstrap.com
+13 http://bootswatch.com
