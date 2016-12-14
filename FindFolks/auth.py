@@ -82,12 +82,12 @@ def register():
         name_len = len(username) == 0
         # 9 execute SQL using sqlalchemy
         usernames = [_ for _ in db.session.execute(
-            text("SELECT COUNT(*) as user_count FROM member WHERE username = :Username"),
+            text("SELECT COUNT(*) as user_count FROM member WHERE username = :Username"),  # counts number of users with username to see if its taken
             {"Username": username}  # username gets username
             )]
         username_used = usernames[0]["user_count"]
         emails = [_ for _ in db.session.execute(
-            text("SELECT COUNT(*) as email_count FROM member WHERE email = :Email"),
+            text("SELECT COUNT(*) as email_count FROM member WHERE email = :Email"),  # same as above but for emails
             {"Email": email}  # email gets email
             )]
         email_used = emails[0]["email_count"]
@@ -137,7 +137,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         member = [_ for _ in db.session.execute(
-            text("SELECT password FROM member WHERE username = :Username"),
+            text("SELECT password FROM member WHERE username = :Username"),  # selects password from corresponding user
             {"Username": username}
             )]
         if len(member) == 1 and bcrypt_sha256.verify(password, member[0][0]):  # verify password using bcrypt
