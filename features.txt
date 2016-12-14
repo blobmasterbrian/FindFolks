@@ -1,0 +1,37 @@
+Additional features added.
+
+1. Send emails for registration (commented out)
+   and email reminders for events (not commented out)
+   feature is implemented properly but may not work
+   because it uses an email API mailgun which has not
+   yet verified us as a non spam service.
+
+2. Better password security implemented using sha512
+   and sha256 with bcrypt which generates a random
+   salt protecting against rainbow/lookup tables.
+
+3. Use of bootstrap to create a visually appealing website.
+
+4. Show groups with similar interests
+
+5. All optionally functionality added.
+   (eg. timestamps/range used various times)
+
+6. Reasonably complex constraints. Can't add already added friends.
+   Can't add already added interests. Can only search groups by list
+   of interests groups have.
+
+7. Reasonably complex display. Event search lists host, title, data,
+   and much more all layed out nicely.
+
+8. There is code for a password reset written, but
+   not in use because it sends an email verification
+   and without mailgun verification, the user would
+   be indefinitely locked out.
+
+9. Not functionality but wrote a shell script that
+   originally installed all necessary packages,
+   created a corresponding python virtual env then
+   immediately ran the server. Still works, but not
+   when externally populating the database with
+   SQL statements run from command line.
