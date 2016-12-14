@@ -67,8 +67,8 @@ def register():
     if request.method == 'POST':
         errors = []
         firstname = request.form['firstname']  # 10 requests form with the
-        lastname = request.form['lastname']    # corressponding name
-        username = request.form['username']    # from the corressponding
+        lastname = request.form['lastname']    # corresponding name
+        username = request.form['username']    # from the corresponding
         email = request.form['email']          # url, register.html is
         password = request.form['password']    # rendered, therefore retrieving
         zipcode = request.form['zipcode']      # value from line 61 for zipcode

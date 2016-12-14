@@ -4,7 +4,7 @@ from flask_session import Session
 import logging, os, sqlalchemy, jinja2
 from flask_oauth import OAuth
 
-oauth = OAuth()
+oauth = OAuth()  # unneeded
 
 # returns formatted string of date
 def format_datetime(date):

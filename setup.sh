@@ -20,7 +20,7 @@ venv/bin/pip install passlib  # install passlib package
 venv/bin/pip install bcrypt  # install in environment (Also needed system installation)
 venv/bin/easy_install six  # flask/mysql-python requires six version > 1.4.1 which cannot be installed system wide
 venv/bin/pip install mysql-python  # mysql-python installation
-venv/bin/pip install requests  # requests package (needed for mailgun)
+venv/bin/pip install requests  # requests package
 
 # Set source to virtual environment
 source venv/bin/activate  # set python environment to virtual env
