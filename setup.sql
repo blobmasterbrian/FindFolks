@@ -15,7 +15,7 @@ INSERT INTO member (username, password, firstname, lastname, email, zipcode) VAL
 ('user2', '1ccfa1de7b2c274533e9a4d56e771aea', 'Bob', 'Bobber', 'user2@gmail.com', 11201),
 ('user3', 'c7b13c12f9023a6e8f1ee72c9214f32a', 'Cathy', 'Chen', 'user3@gmail.com', 11201),
 ('user4', 'efe3482eb818b2c78ca2c938e4c300469517a59095128f0402e520167ba18edb3505691777a95caf15412999cf112707add23204b56418a15a198fa62f1172c0', 'Dan', 'Duval', 'user4@gmail.com', 11201);
-          # ^ password changed for sha256
+          # ^ password changed for sha256 (still does not work because bcrypt adds random salt)
 
 INSERT INTO interest (interest_name) VALUES
 ('bird-watching'),

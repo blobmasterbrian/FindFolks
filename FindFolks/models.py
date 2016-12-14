@@ -6,9 +6,9 @@ import datetime
 import hashlib
 
 def sha512(string):
-    return hashlib.sha512(string).hexdigest()
+    return hashlib.sha512(string).hexdigest()  # returns hash for sha512
 
-db = SQLAlchemy()
+db = SQLAlchemy()  # 5 create alchemy object to configue later
 
 class Member(db.Model):
     username = db.Column(db.String(20), unique=True, primary_key=True)
@@ -20,7 +20,7 @@ class Member(db.Model):
 
     def __init__(self, username, password, firstname, lastname, email, zip):
         self.username = username
-        self.password = bcrypt_sha256.encrypt(password)
+        self.password = bcrypt_sha256.encrypt(password)  # 11 password bcrypt protected (random salt)
         self.firstname = firstname
         self.lastname = lastname
         self.zip = zip
@@ -29,7 +29,7 @@ class Member(db.Model):
         return '<Member %r>' % self.username
 
 class Friends(db.Model):
-    friend_to = db.Column(db.String(20), primary_key=True)
+    friend_to = db.Column(db.String(20), primary_key=True)  # mistake
     friend_of = db.Column(db.String(20))
 
     def __init__(self, friend_to, friend_of):
@@ -59,13 +59,13 @@ class Interest(db.Model):
     interest_name = db.Column(db.String(20), default="", primary_key=True)
 
     def __init__(self, interest_name=""):
-        self.interest_name = interest_name
+        self.interest_name = interest_name  # mistake
 
     def __repr__(self):
         return '<Interest %r>' % self.interest_name
 
 class GroupInterest(db.Model):
-    __tablename__ = "about"
+    __tablename__ = "about"  # makes table name in db about
     interest_name = db.Column(
             db.String(20), db.ForeignKey('interest.interest_name'), default=""
         )
@@ -85,7 +85,7 @@ class MemberInterest(db.Model):
     __tablename__ = "interested_in"
     interest_name = db.Column(db.String(20), db.ForeignKey('interest.interest_name'), default="")
     username = db.Column(db.String(20), db.ForeignKey('member.username'))
-    i = db.Column(db.Integer, primary_key=True)
+    i = db.Column(db.Integer, primary_key=True)  # increments for each inserted row (should have been used for friends and location)
 
     def __init__(self, interest_name, username):
         self.interest_name = interest_name
@@ -114,8 +114,8 @@ class GroupUser(db.Model):
         return '<GroupUser %r>' % self.group_id
 
 class Location(db.Model):
-    lname = db.Column(db.String(20), default="", primary_key=True)
-    zipcode = db.Column(db.Integer, index=True, unique=True)
+    lname = db.Column(db.String(20), default="", primary_key=True)  # mistake
+    zipcode = db.Column(db.Integer, index=True, unique=True)  # mistake
     street = db.Column(db.String(20), default="")
     city = db.Column(db.String(20), default="")
     description = db.Column(db.Text)

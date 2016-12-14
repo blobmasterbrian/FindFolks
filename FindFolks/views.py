@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 import datetime, json, requests
 from time import gmtime, strftime
 
-views = Blueprint('views', __name__)
+views = Blueprint('views', __name__)  # 7
 
 eng = create_engine(SQLALCHEMY_DATABASE_URI)
 
@@ -45,7 +45,7 @@ def index():
             (end_time >= :StartRange AND end_time <= :EndRange)"),
         {"StartRange": start_time, "EndRange": end_time}
         )]
-    return render_template('index.html', groups=groups, events=events, interests=interests, start_time=start_time, end_time=end_time)
+    return render_template('index.html', groups=groups, events=events, interests=interests, start_time=start_time, end_time=end_time)  # 2
 
 @views.route('/home', methods=['GET', 'POST'])
 def home():
@@ -96,7 +96,7 @@ def home():
         {"Username": username})]
     return render_template('home.html', events=events, groups=groups, interests=interests, friends=friends,
         event_search=event_search, start_time=start_time, end_time=end_time, msg=msg, group_members=group_members,
-        event_members=event_members, errors=errors)
+        event_members=event_members, errors=errors)  # 2
 
 @views.route('/send/reminder', methods=['POST'])
 def send_reminder():
@@ -123,7 +123,7 @@ def send_reminder():
 
     sendmail(email, "You have some events coming up, here they are: %s" % json.dumps(events))
 
-    return redirect(url_for(".home", msg="Sent Reminders"))
+    return redirect(url_for(".home", msg="Sent Reminders"))  # 2
 
 @views.route('/search/event', methods=['POST', 'GET'])
 def search_events():
@@ -136,7 +136,7 @@ def search_events():
             LEFT JOIN groups ON events.group_id = groups.group_id WHERE title LIKE \"%%%s%%\"" % search),
             {"Search": search})]
 
-    return render_template('search_event.html', results=results, search=search)
+    return render_template('search_event.html', results=results, search=search)  # 2
 
 @views.route('/search/group', methods=['POST', 'GET'])
 def search_groups():
@@ -146,7 +146,7 @@ def search_groups():
         search  = request.form.get("search")
         results = [_ for _ in db.session.execute(text("SELECT * FROM groups WHERE group_name LIKE \"%%%s%%\"" % search))]
 
-    return render_template('search_group.html', results=results, search=search)
+    return render_template('search_group.html', results=results, search=search)  # 2
 
 @views.route('/join/event', methods=['POST'])
 def join_event():
@@ -171,7 +171,7 @@ def join_event():
 
     db.session.commit()
 
-    return redirect(url_for(".home", msg="Joined Event", errors=errors))
+    return redirect(url_for(".home", msg="Joined Event", errors=errors))  # 2
 
 @views.route('/join/group', methods=['POST'])
 def join_group():
@@ -194,7 +194,7 @@ def join_group():
 
     db.session.commit()
 
-    return redirect(url_for(".home", msg="Joined Group"))
+    return redirect(url_for(".home", msg="Joined Group"))  # 2
 
 @views.route('/create/group', methods=['GET', 'POST'])
 def create_group():
@@ -238,8 +238,8 @@ def create_group():
             {"GroupID": group_id, "Category": category})
         db.session.commit()
 
-        return redirect(url_for(".home", msg="Created Group"))
-    return render_template('create_group.html')
+        return redirect(url_for(".home", msg="Created Group"))  # 2
+    return render_template('create_group.html')  # 2
 
 @views.route('/create/event', methods=['GET', 'POST'])
 def create_event():
@@ -300,9 +300,9 @@ def create_event():
                   VALUES (:EventID, :Username, :RSVP)"),
             {"EventID": event_id, "Username": username, "RSVP": 1})
         db.session.commit()
-        return redirect(url_for(".home", msg="Created Event"))
+        return redirect(url_for(".home", msg="Created Event"))  # 2
 
-    return render_template('create_event.html', groups=groups, start_time=start_time, end_time=end_time)
+    return render_template('create_event.html', groups=groups, start_time=start_time, end_time=end_time)  # 2
 
 @views.route('/rate', methods=['POST'])
 def rate():
@@ -314,18 +314,18 @@ def rate():
         rating = int(rating)
     except:
         errors = "Not a valid rating"
-        return redirect(url_for(".home", msg="", errors=errors))
+        return redirect(url_for(".home", msg="", errors=errors))  # 2
 
     if rating < 0 or rating > 10:
         errors = "Not a valid rating"
-        return redirect(url_for(".home", msg="", errors=errors))
+        return redirect(url_for(".home", msg="", errors=errors))  # 2
 
     db.session.execute(
         text("UPDATE attend SET rating = :Rating WHERE username = :Username AND event_id = :EventID"),
         {"Rating": rating, "Username": username, "EventID": event_id})
     db.session.commit()
 
-    return redirect(url_for(".home", msg="Added Rating"))
+    return redirect(url_for(".home", msg="Added Rating"))  # 2
 
 @views.route('/create/interest', methods=['POST'])
 def create_interest():
@@ -352,7 +352,7 @@ def create_interest():
             {"Interest": interest, "Username": username})
         db.session.commit()
 
-    return redirect(url_for(".home", msg="Added Interest"))
+    return redirect(url_for(".home", msg="Added Interest"))  # 2
 
 @views.route('/add/friend', methods=['POST'])
 def add_friend():
@@ -373,7 +373,7 @@ def add_friend():
             {"Friend": friend, "Username": username})
         db.session.commit()
 
-    return redirect(url_for(".home", msg="Added friend"))
+    return redirect(url_for(".home", msg="Added friend"))  # 2
 
 @views.route('/logout')
 def logout():

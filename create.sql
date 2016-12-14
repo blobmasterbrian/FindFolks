@@ -1,1 +1,1 @@
-CREATE DATABASE FindFolks;
+CREATE DATABASE FindFolks;  # creates database
